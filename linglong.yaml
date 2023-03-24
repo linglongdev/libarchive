@@ -1,0 +1,39 @@
+package:
+  id: libarchive
+  name: libarchive
+  version: 3.3.3
+  kind: lib
+  description: |
+    libarchive.
+
+
+base:
+  id: org.deepin.base
+  version: 20.5.0
+
+source:
+  kind: git
+  url: https://github.com/deepin-community/libarchive.git
+  version: eagle/3.3.3
+  commit: 410142995361172c8e050569f1ba9b2016fd18ea
+  patch:
+  - typos.patch
+  - upstream-cpio-hardlink-type.patch
+  - upstream-cpio-rdev.patch
+  - upstream-isint-w.patch
+  - upstream-unneeded-strlen.patch
+  - upstream-hardlink-to-self.patch
+  - upstream-set-format-error.patch
+  - upstream-rar-read-format.patch
+  - upstream-memory-stdlib.patch
+  - upstream-max-comp-level.patch
+build:
+  kind: manual
+  manual:
+    configure: |
+      #exec bash
+      mkdir build
+      cd build
+      cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} ..
+      make -j6
+      make -j6 install
